@@ -16,7 +16,7 @@ def plot(ax, times, values, bins, text):
 
     ax.scatter(times, values, color='g', alpha=0.3)
     ax.plot(x_new - delta / 2, running_median, 'b-', lw=2)
-    ax.legend()
+    ax.legend(loc='lower right')
     return
 
 
@@ -28,12 +28,12 @@ def plot_min_max_med(ax, values, text):
     ax.axhline(np.mean(values), label='average: ' + str(np.mean(values)),
                   alpha=0.4,
                   color='orange')
-    ax.legend()
+    ax.legend(loc='lower right')
     return
 
 
 # With matplotlib we define a new subplot with a certain size (10x10)
-fig, ax = plt.subplots(2, sharex=True, figsize=(10, 10))
+fig, ax = plt.subplots(2, sharex=True)
 
 # number of bins for median
 total_bins = 420
@@ -61,6 +61,7 @@ plot(ax[0], time_in_seconds, ms_between_presents, total_bins, text)
 plot_min_max_med(ax[0], ms_between_presents, text)
 ax[0].set_title(text)
 ax[0].set_ylim([0,20])
+ax[0].set_xlim([0,max(time_in_seconds)])
 
 text="FPS"
 plot(ax[1], time_in_seconds, np.asarray(frames_per_sec), total_bins, text)
@@ -71,5 +72,5 @@ ax[1].set_ylim([0,200])
 
 # Show the legend
 # plt.ylim([0, 200])
-
+plt.tight_layout()
 plt.show()
