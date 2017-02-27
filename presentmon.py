@@ -63,6 +63,7 @@ ms_until_displayed = data[:, 5]
 x = time_in_seconds
 y = ms_between_presents
 
+# calculate fps from times
 fps = []
 last_y=0
 for tis in y:
