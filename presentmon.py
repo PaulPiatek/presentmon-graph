@@ -67,12 +67,7 @@ y = ms_between_presents
 fps = []
 last_y=0
 for tis in y:
-    if tis != -1:
-        fps.append(1 / (tis / 1000))
-        last_y = tis
-    else:
-        fps.append(1/ (last_y / 1000))
-        print(last_y)
+    fps.append(1 / (tis / 1000))
 
 text="Frametime"
 plot(ax[0], x, y, total_bins, text)
