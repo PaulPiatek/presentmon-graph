@@ -1,5 +1,5 @@
 # presentmon-graph
-Small Python Script to Visualize Presentmon Results
+This is a small Python sript to visualize [Presentmon](https://github.com/GameTechDev/PresentMon) results
 
 ### Dependencies
 * matplotlib
@@ -8,5 +8,5 @@ Small Python Script to Visualize Presentmon Results
 ### Usage
 Start the script, select the Presentmon created csv file, done.
 
-### Sample
+### Output Sample
 ![Alt text](sample.png?raw=true "Sample")
