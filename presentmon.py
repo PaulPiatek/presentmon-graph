@@ -2,6 +2,8 @@
 # numpy and matplotlib using the common alias 'np' and 'plt'.
 import numpy as np
 import matplotlib.pyplot as plt
+import tkinter as tk
+from tkinter import filedialog
 
 plt.style.use('ggplot')
 
@@ -36,11 +38,17 @@ def plot_min_max_med(ax, values, text):
 fig, ax = plt.subplots(2, sharex=True)
 
 # number of bins for median
-total_bins = 420
+total_bins = 500
+
+# selct the presentmon csv-file
+root = tk.Tk()
+root.withdraw()
+file_path = filedialog.askopenfilename(initialdir='~', filetypes=(('Presentmon Files', '*.csv'), ('All Files', '*')))
 
 # Using numpy we can use the function loadtxt to load your CSV file.
 # We ignore the first line with the column names and use ',' as a delimiter.
-data = np.loadtxt('/home/paul/Schreibtisch/test.csv', delimiter=',', skiprows=1, usecols=(9, 10, 11, 12, 13, 14))
+# data = np.loadtxt('/home/paul/Schreibtisch/test.csv', delimiter=',', skiprows=1, usecols=(9, 10, 11, 12, 13, 14))
+data = np.loadtxt(file_path, delimiter=',', skiprows=1, usecols=(9, 10, 11, 12, 13, 14))
 
 # You can access the columns directly, but let us just define them for clarity.
 # This uses array slicing/indexing to cut the correct columns into variables.
@@ -51,23 +59,32 @@ ms_in_present_api = data[:, 3]
 ms_until_render_complete = data[:, 4]
 ms_until_displayed = data[:, 5]
 
-frames_per_sec = []
+# this are the important values: time and ms between presents (could calculate this, but hey it's already there)
+x = time_in_seconds
+y = ms_between_presents
 
-for tis in ms_between_presents:
-    frames_per_sec.append(1/(tis/1000))
+fps = []
+last_y=0
+for tis in y:
+    if tis != -1:
+        fps.append(1 / (tis / 1000))
+        last_y = tis
+    else:
+        fps.append(1/ (last_y / 1000))
+        print(last_y)
 
 text="Frametime"
-plot(ax[0], time_in_seconds, ms_between_presents, total_bins, text)
-plot_min_max_med(ax[0], ms_between_presents, text)
+plot(ax[0], x, y, total_bins, text)
+plot_min_max_med(ax[0], y, text)
 ax[0].set_title(text)
 ax[0].set_ylim([0,20])
-ax[0].set_xlim([0,max(time_in_seconds)])
+ax[0].set_xlim([0,max(x)])
 
 text="FPS"
-plot(ax[1], time_in_seconds, np.asarray(frames_per_sec), total_bins, text)
-plot_min_max_med(ax[1], frames_per_sec, text)
+plot(ax[1], x, np.asarray(fps), total_bins, text)
+plot_min_max_med(ax[1], fps, text)
 ax[1].set_title(text)
-ax[1].set_ylim([0,200])
+ax[1].set_ylim([0,300])
 
 
 # Show the legend
