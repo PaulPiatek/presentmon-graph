@@ -1,5 +1,5 @@
 # presentmon-graph
-This is a small Python sript to visualize [Presentmon](https://github.com/GameTechDev/PresentMon) results
+This is a small Python script to visualize [Presentmon](https://github.com/GameTechDev/PresentMon) results
 
 ### Dependencies
 * matplotlib
