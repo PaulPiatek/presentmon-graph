@@ -44,6 +44,7 @@ total_bins = 500
 root = tk.Tk()
 root.withdraw()
 file_path = filedialog.askopenfilename(initialdir='~', filetypes=(('Presentmon Files', '*.csv'), ('All Files', '*')))
+root.destroy()
 
 # Using numpy we can use the function loadtxt to load your CSV file.
 # We ignore the first line with the column names and use ',' as a delimiter.
