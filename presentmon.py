@@ -17,8 +17,9 @@ def plot_median_scatter(ax, times, values, bins):
 
     running_median = [np.median(values[idx == k]) for k in range(bins)]
 
-    scatter = ax.scatter(times, values, color='g', alpha=0.3, label='raw')
-    median, = ax.plot(x_new - delta / 2, running_median, 'b-', lw=2, label='median')
+    #scatter = ax.scatter(times, values, color='g', alpha=0.3, label='raw')
+    scatter, = ax.plot(times, values, 'g-', lw=0.3, label='raw', antialiased=1)
+    median, = ax.plot(x_new - delta / 2, running_median, 'b-', lw=1, label='median', antialiased=1)
     return scatter, median
 
 
@@ -45,7 +46,7 @@ def plot(ax, times, values, bins):
 fig, axarr = plt.subplots(2, sharex=True, figsize=(14, 9), dpi=100)
 
 # number of bins for median
-total_bins = 500
+total_bins = 750
 
 # select the presentmon csv-file
 root = tk.Tk()
