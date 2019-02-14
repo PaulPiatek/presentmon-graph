@@ -17,7 +17,6 @@ def plot_median_scatter(ax, times, values, bins):
 
     running_median = [np.median(values[idx == k]) for k in range(bins)]
 
-    #scatter = ax.scatter(times, values, color='g', alpha=0.3, label='raw')
     scatter, = ax.plot(times, values, 'g-', lw=0.3, label='raw', antialiased=1)
     median, = ax.plot(x_new - delta / 2, running_median, 'b-', lw=1, label='median', antialiased=1)
     return scatter, median
@@ -27,8 +26,10 @@ def plot_median_scatter(ax, times, values, bins):
 def plot_min_max_med(ax, values):
     max_ms = "{0:.1f}".format(max(values))
     min_ms = "{0:.1f}".format(min(values))
-    ax.text(0, 0, 'max/min ' + max_ms + '/' + min_ms, verticalalignment='bottom')
-
+    top_98 = "{0:.1f}".format(np.nanquantile(values, 0.98))
+    top_02 = "{0:.1f}".format(np.nanquantile(values, 0.02))
+    
+    ax.text(0, 0, 'max/min ' + max_ms + '/' + min_ms + ' | 98/02% ' + top_98 + '/' + top_02, verticalalignment='bottom')
     average = ax.axhline(np.mean(values), label='average: ' + str(np.mean(values)),
                          color='orange',
                          alpha=0.4)
